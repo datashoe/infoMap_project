@@ -11,5 +11,6 @@ for i = 1:lines
     AM(y,x) = AM(y,x)+1;
 end
 [flow,p,telep] = RandomWalk(AM);
-nodeclass = [1,1,3,1,1,1,1,1,3,2,1,1,1,1,2,2,1,1,2,3,2,1,2,2,2,2,2,2,2,2,2,2,2,2];
+nodeclass = [1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,2,1,1,2,1,2,1,2,2,2,2,2,2,2,2,2,2,2,2];
 [ LM, withinCL, betweenCL ] = MapEquation(nodeclass, flow, p, telep);
+[hdakda] = greedy(flow,p,telep);
