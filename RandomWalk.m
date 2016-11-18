@@ -1,6 +1,4 @@
-%function [flow,p,teleportP] = RandomWalk(AM, recorded, link)
-clear
-AM = load('cattle.txt');
+function [flow,p,teleportP] = RandomWalk(AM)
 alpha = 0.15;
 %W = AM';
 nodeNum = length(AM);
