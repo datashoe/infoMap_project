@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8"> 
+	<title>D3 tutorial</title>
+	<script src = "http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	
+</head>
+
+<body>
+
+	<script>
+
+		var w = 960
+		var h = 500
+		var body = d3.select("body")
+		var svg = body.append("svg")
+					.attr("width",w)
+					.attr("height",h)
+					.append("g")
+					.attr("transform","translate(0,0)");
+
+		var projection = d3.geo.albersUsa()
+							.scale([1000])
+							.translate([w/2,h/2]);
+
+		var color = d3.scale.category20();
+			console.log(color);
+		var path = d3.geo.path()
+					.projection(projection);
+
+		//var arr1 = ["AL","FL","GA","MS","NC","SC","TN"];
+		//var arr2 = ["AR","CO","KS","LA","MO","NM","OK","TX"];
+		//var arr3 = ["AZ","CA","ID","NV","OR","UT","WA"];
+		//var arr4 = ["CT","MA","ME","NH","NY","RI","VT"];
+		//var arr5 = ["IA","MN","MT","ND","NE","SD","WY"];
+		//var arr6 = ["DC","DE","PA","MD","NJ","WV","OH","VA","KY","IN","IL","MI","WI"];
+
+		var arr1 = ["AL","FL","GA","MS","NC","SC","TN","KY","VA","WV","AR","LA"];
+		var arr2 = ["NM","OK","TX","AZ"];
+		var arr3 = ["CA","ID","NV","OR","UT","WA","WY","MT","CO"];
+		var arr4 = ["CT","MA","ME","NH","RI","VT"];
+		var arr5 = ["IA","MN","ND","NE","SD","OH","IN","IL","MI","WI","KS","MO"];
+		var arr6 = ["DC","DE","PA","MD","NJ","NY"];
+
+		d3.json("USA.json",function(error,root){
+			if (error) return console.error(error);
+			console.log(root.features);
+
+			svg.selectAll("path")
+				.data(root.features)
+				.enter()
+				.append("path")
+				.attr("stroke","#000")
+				.attr("stroke-width",1)
+				.attr("fill",function(d){
+					var value = d.properties.postal;
+					if(arr1.indexOf(value) > -1 ){
+						return "steelblue";
+					}
+					if(arr2.indexOf(value) > -1 ){
+						return "red";
+					}
+					if(arr3.indexOf(value) > -1 ){
+						return "forestgreen";
+					}
+					if(arr4.indexOf(value) > -1 ){
+						return "yellow";
+					}
+					if(arr5.indexOf(value) > -1 ){
+						return "blue";
+					}
+					if(arr6.indexOf(value) > -1 ){
+						return "grey";
+					}
+					else{
+						return "ghostwhite";
+					}
+				})
+				.attr("d",path)
+				
+		});
+	</script>
+
+</body>
+</html>
